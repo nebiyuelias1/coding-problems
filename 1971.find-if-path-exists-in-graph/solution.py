@@ -6,7 +6,7 @@ class Solution:
         if source == destination:
             return True
         
-        visited.append(source)
+        visited[source] = True
         
         for neighbor in adj_list[source]:
             if neighbor not in visited:
@@ -18,7 +18,7 @@ class Solution:
 
     def validPath(self, n: int, edges: List[List[int]], source: int, destination: int) -> bool:
         adj_list = {i: [] for i in range(n)}
-        visited = []
+        visited = {}
         for e in edges:
             adj_list[e[0]].append(e[1])
             adj_list[e[1]].append(e[0])
