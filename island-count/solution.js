@@ -1,6 +1,6 @@
 const exploreGraph = (grid, visited, row, column) => {
   if (row < 0 || row >= grid.length) {
-    return;
+    return ;
   }
   if (column < 0 || column >= grid[0].length) {
     return;
