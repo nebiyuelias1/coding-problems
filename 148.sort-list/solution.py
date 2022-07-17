@@ -25,7 +25,11 @@ class Solution:
         
         while True:
             if not left_start or not right_start:
-                return
+                break
+            
+            if left_start == slow.next:
+                break
+                
             if left_start.val > right_start.val:
                 temp = left_start.val
                 left_start.val = right_start.val
@@ -34,9 +38,7 @@ class Solution:
             else:
                 right_start = right_start.next
                 
-            if left_start == right_start or right_start == end:
-                break
-                
+            
     def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
         self.rec(head, None)
         
