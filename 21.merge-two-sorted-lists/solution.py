@@ -7,32 +7,45 @@ class ListNode:
         self.next = next
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        current_a = list1
-        current_b = list2
-        
-        start = None
-        
         if not list1:
             return list2
-        elif not list2:
+        if not list2:
             return list1
         
-        while current_a != None and current_b != None:
-            if current_a.val > current_b.val:
-                if start is None:
-                    start = current_b 
-                temp = current_b.next
-                current_b.next = current_a
-                current_b = temp
-                
+        if list1.val <= list2.val:
+            start = list1
+            prev = list1
+            main = list1.next
+            secondary = list2
+        else:
+            start = list2
+            prev = list2
+            secondary = list1
+            main = list2.next
+        
+        while True:
+            if secondary == None:
+                break
+            if main == None:
+                prev.next = secondary
+                break
+            
+            if main.val >= secondary.val:
+                new_secondary = secondary.next
+                prev.next = secondary
+                secondary.next = main
+                prev = secondary
+                secondary = new_secondary
             else:
-                if start is None:
-                    start = current_a 
-                temp = current_a.next
-                current_a.next = current_b
-                current_a = temp
+                main = main.next
+                prev = prev.next
+                
+            
                 
         return start
+        
+        
+    
     
 
 list1_five = ListNode(val=5)
