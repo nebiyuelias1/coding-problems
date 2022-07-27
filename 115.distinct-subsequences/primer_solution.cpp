@@ -5,38 +5,32 @@ using namespace std;
 class Solution
 {
 public:
-    vector<string> distinctSubsequencesRec(string s, int index, int n, string original)
+    void distinctSubsequencesRec(string subsequence, vector<string>& subsequences, int index, string original)
     {
-        if (index >= n) {
-            return vector<string> {s};
+        if (index == (original.size())) {
+            subsequences.push_back(subsequence);
+        } else {
+            this->distinctSubsequencesRec(subsequence, subsequences, index + 1, original);
+            this->distinctSubsequencesRec(subsequence + original.at(index), subsequences, index + 1, original);
         }
 
-        string t = s;
-        int i = t.find(original[index]);
-        t.erase(i, 1);
-        vector<string> a  = this->distinctSubsequencesRec(s, index + 1, n, original);
-        vector<string> b = this->distinctSubsequencesRec(t, index + 1, n, original);
-        vector<string> combined;
-        combined.reserve(a.size() + b.size());
-        combined.insert(combined.end(), a.begin(), a.end());
-        combined.insert(combined.end(), b.begin(), b.end());
-        return combined;
     }
 
     vector<string> distinctSubsequences(string s)
     {
-        int n = s.size();
-        return this->distinctSubsequencesRec(s, 0, n, s);
+        vector<string> v;
+        this->distinctSubsequencesRec("", v, 0, s);
+        return v;
     }
 };
 
 int main(int argc, char const *argv[])
 {
     Solution s;
-    vector<string> ans = s.distinctSubsequences("abcd");
+    vector<string> ans = s.distinctSubsequences("babgbag");
     for (int i = 0; i < ans.size(); i++)
     {
-        cout << ans[i] << endl;
+        cout << i << ":" << ans[i] << "," << ans[i].compare("bag") << endl;
     }
     
 }
